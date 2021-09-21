@@ -8,7 +8,7 @@ const LocationKeys = [
   { id: 309, name: 'Ewa Town', waitwhileId: null },
   { id: 310, name: 'Ward Center', waitwhileId: null },
   { id: 313, name: 'Kona Commons', waitwhileId: null },
-  { id: 315, name: 'Kapolei Commons', waitwhileId: null },
+  { id: 315, name: 'Kapolei Commons', waitwhileId: 'xdINkMEOrrmcYp1agE4R' },
   { id: 316, name: 'Renton', waitwhileId: null },
   { id: 319, name: 'MainPlace Mall', waitwhileId: null },
   { id: 320, name: 'Pearlridge Mall', waitwhileId: 'wYA3UpDjYqWKLF1aWEq8' },
