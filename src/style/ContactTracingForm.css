@@ -5,3 +5,17 @@
 .form-input {
   margin-bottom: 8px;
 }
+.notice {
+  border-radius: 3px;
+  padding: 6px;
+  margin-bottom: 8px;
+}
+.yellowbg {
+  background-color: #fdff95b9;
+}
+.bluebg {
+  background-color: #dafaf6c2;
+}
+.notice a {
+  color: #a81818;
+}
