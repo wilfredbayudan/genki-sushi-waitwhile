@@ -17,7 +17,7 @@ function LocationStatus({ storeId, joinable }) {
   useEffect(() => {
     if (Location.validate(storeId)) {
       const locationInfo = Location.info(storeId);
-      const url = `https://wait.genkisushihawaii.com/api/location-status.php?wwid=${locationInfo.waitwhileId}`
+      const url = `https://wait.genkisushihawaii.com/api/location-status?wwid=${locationInfo.waitwhileId}`
       fetch(url)
         .then(res => res.json())
         .then(json => setLocationData(json))

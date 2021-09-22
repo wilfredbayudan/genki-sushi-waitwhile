@@ -19,3 +19,6 @@
 .notice a {
   color: #a81818;
 }
+button:disabled {
+  background-color: rgb(58, 58, 58);
+}

@@ -24,6 +24,7 @@ header {
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
   border-bottom: 1px solid #e7e7e7;
   position: fixed;
+  z-index: 99;
 }
 header img#logo {
   height: 60px;

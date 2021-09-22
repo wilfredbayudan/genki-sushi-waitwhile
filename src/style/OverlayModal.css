@@ -1,0 +1,26 @@
+/* Modal */
+#modal {
+  position: fixed;
+  left: 50%;
+  bottom: -50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;  
+  transition-duration: 600ms;
+  transition-timing-function: ease;
+}
+#modal.active {
+  z-index: 4;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, auto);
+}
+#modal h3 {
+  border-bottom: 1px solid #cacaca;
+  padding: 10px;
+  margin: 0;
+}
