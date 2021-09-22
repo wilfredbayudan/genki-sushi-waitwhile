@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,6 +17,7 @@ import "../style/ContactTracingForm.css";
 
 function ContactTracingForm({ storeId }) {
   const history = useHistory();
+  const match = useRouteMatch();
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -65,6 +66,8 @@ function ContactTracingForm({ storeId }) {
       [name]: value,
     })
 
+    formValidate(name, value)
+    console.log(formData)
     
   }
 
@@ -260,6 +263,8 @@ function ContactTracingForm({ storeId }) {
     return <MenuItem value={country.code} key={key}>{country.name}</MenuItem>
   })
 
+  const renderCheckInUrl = `checkin`;
+
   return (
     <form id="contact-tracing-form" onSubmit={handleSubmit}>
       <LoaderOverlay active={loaderOverlayIsOn} />
@@ -268,7 +273,7 @@ function ContactTracingForm({ storeId }) {
         ⓘ Local mandates <a href="https://www.hawaiinewsnow.com/2020/09/23/under-order-oahu-restaurants-will-have-keep-diners-contact-details-days/" target="_blank" rel="noreferrer">require restauraunts to collect contact information</a> from one member of each dining party. Please fill out the questionnaire below.
       </div>
       <div className="notice bluebg">
-        Already did this? <a href="/">Click here</a> to check-in with your PreCheckID.
+        Already did this? <a href={renderCheckInUrl}>Click here</a> to check-in with your PreCheckID.
       </div>
       <div className="form-input">
         {renderTextField('first-name', 'firstName', 'First Name')}

@@ -1,4 +1,4 @@
-#contact-tracing-form {
+#contact-tracing-form, #checkin-form {
   width: 100%;
   text-align: left;
 }
@@ -9,6 +9,7 @@
   border-radius: 3px;
   padding: 6px;
   margin-bottom: 8px;
+  text-align: left;
 }
 .yellowbg {
   background-color: #fdff95b9;

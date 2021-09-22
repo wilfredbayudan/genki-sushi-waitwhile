@@ -14,6 +14,9 @@ function LocationRouter() {
       <Route path={`${match.url}/join`}>
         <Join storeId={storeIdParam} />
       </Route>
+      <Route path={`${match.url}/checkin`} exact>
+        <CheckIn storeId={storeIdParam} />
+      </Route>
       <Route path={`${match.url}/checkin/:preCheckId`}>
         <CheckIn storeId={storeIdParam} />
       </Route>
