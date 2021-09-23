@@ -27,6 +27,7 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
   const [retrievedId, setRetrievedId] = useState(false);
+  const [disabledStatus, setDisabledStatus] = useState(true);
   const [additionalDetails, setAdditionalDetails] = useState({
     partySize: '',
     counterOk: false,
@@ -54,7 +55,7 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
   }
 
   function validatePhone(phone) {
-    const regex = /^[0-9]{11,15}$/
+    const regex = /^[0-9]{10,15}$/
     const result = regex.test(phone.replace(/\D/g,''));
     if (!result) {
       setPhoneError(true);
@@ -82,6 +83,8 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
             setPhone(json[0].phone)
             setRetrievedId(json[0]);
             setPreCheckError(false);
+            setPhoneError(false);
+            setDisabledStatus(false)
           } else {
             setPreCheckError(true);
           }
@@ -113,6 +116,7 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
       })
     } else {
       setLoaderActive(true);
+      setDisabledStatus(true);
 
       // Set Form Data
       const dataObj = {
@@ -229,7 +233,7 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
           </FormGroup>
         </div>
         <hr />
-        <button type="submit" disabled={retrievedId ? false : true}>Check-In</button>
+        <button type="submit" disabled={disabledStatus}>Check-In</button>
       </form>
     </Card>
   )

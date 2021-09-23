@@ -164,3 +164,12 @@ button.createid {
   background: none;
   color: #414141;
 }
+button.link {
+  display: inline;
+  width: auto;
+  background: none;
+  color:#2371e7;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}

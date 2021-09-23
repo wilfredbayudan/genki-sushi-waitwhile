@@ -10,7 +10,7 @@ function Success ({ storeId, checkInData }) {
     <Card title="You're on the waitlist!">
       {checkInData.firstName}, you're currently
       <h4 className="numWaiting">#{checkInData.position}</h4>
-      in line at <b>{Location.info(storeId).name}</b>. We'll send you a text when it's almost your turn. In the meantime, why not <a href="https://genkisushiusa.com/waitmenuv3" alt="our menu">check out the menu?</a>
+      in line at <b>{Location.info(storeId).name}</b>. We'll send you a text when it's almost your turn. Please have your vaccination/test documentation ready. In the meantime, why not <a href="https://genkisushiusa.com/waitmenuv3" alt="our menu" target="_blank" rel="noreferrer">check out the menu?</a>
       <a href={waitWhileLink}><button>View Virtual Ticket</button></a>
     </Card>
   )

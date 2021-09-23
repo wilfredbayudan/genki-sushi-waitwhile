@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer () {
   return (
-    <footer>This is the footer</footer>
+    <footer>© 2021 Genki Sushi USA, Inc</footer>
   )
 }
 

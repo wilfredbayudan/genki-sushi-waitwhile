@@ -188,7 +188,12 @@ function ContactTracingForm({ storeId }) {
 
     let sendData = new FormData();
     Object.keys(formData).forEach(inputName => {
-      sendData.append(inputName, formData[inputName]);
+      let value = formData[inputName];
+      if (inputName === "phone") {
+        console.log(inputName)
+        value = formData.phone.replace(/\D/g,'');
+      }
+      sendData.append(inputName, value);
     })
 
     fetch(postUrl, { method: 'POST', body: sendData })
@@ -213,7 +218,7 @@ function ContactTracingForm({ storeId }) {
 
     preValidate();
 
-    if (Object.keys(formErrors).filter(key => formErrors[key] !== null).length > 0) {
+    if (Object.keys(formErrors).filter(key => formErrors[key] !== null).length > 0 || formData.phone.length < 5) {
 
       setOverlayModal({
         active: true,
@@ -261,7 +266,9 @@ function ContactTracingForm({ storeId }) {
     return <MenuItem value={country.code} key={key}>{country.name}</MenuItem>
   })
 
-  const renderCheckInUrl = `checkin`;
+  function linkToCheckIn() {
+    history.push(`/${storeId}/checkin`)
+  }
 
   return (
     <form id="contact-tracing-form" onSubmit={handleSubmit}>
@@ -271,7 +278,7 @@ function ContactTracingForm({ storeId }) {
         ⓘ Local mandates <a href="https://www.hawaiinewsnow.com/2020/09/23/under-order-oahu-restaurants-will-have-keep-diners-contact-details-days/" target="_blank" rel="noreferrer">require restauraunts to collect contact information</a> from one member of each dining party. Please fill out the questionnaire below.
       </div>
       <div className="notice bluebg">
-        Already did this? <a href={renderCheckInUrl}>Click here</a> to check-in with your PreCheckID.
+        Already did this? <button onClick={linkToCheckIn} className="link">Click here</button> to check-in with your PreCheckID.
       </div>
       <div className="form-input">
         {renderTextField('first-name', 'firstName', 'First Name')}
@@ -328,6 +335,9 @@ function ContactTracingForm({ storeId }) {
       </div>
       <hr />
       <button type="submit" disabled={loaderOverlayIsOn}>Next</button>
+      <p>
+      By submitting this form, you are agreeing to our <a href="https://www.genkisushiusa.com/privacy" target="_blank" rel="noreferrer">privacy policy</a>.
+      </p>
     </form>
   )
 }
