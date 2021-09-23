@@ -7,7 +7,7 @@ class Location {
   }
 
   static waitwhileId(storeId) {
-    return LocationKeys.find(store => store.id === parseInt(storeId) && store.waitwhileId !== null);
+    return LocationKeys.find(store => store.id === parseInt(storeId) && store.waitwhileId !== null).waitwhileId;
   }
 
   static info(storeId) {

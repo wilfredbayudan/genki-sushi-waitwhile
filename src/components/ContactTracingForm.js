@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,7 +17,6 @@ import "../style/ContactTracingForm.css";
 
 function ContactTracingForm({ storeId }) {
   const history = useHistory();
-  const match = useRouteMatch();
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -66,9 +65,7 @@ function ContactTracingForm({ storeId }) {
       [name]: value,
     })
 
-    formValidate(name, value)
-    console.log(formData)
-    
+    formValidate(name, value)    
   }
 
   function handlePhoneChange(input) {
@@ -137,7 +134,7 @@ function ContactTracingForm({ storeId }) {
         break;
       case 'email':
         if (inputValue.length > 0) {
-          regex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+          regex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:)*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:)+)\])/
           result = regex.test(inputValue);
           if (!result) {
             errorMessage = 'Please provide a valid email address or no email address.';
@@ -187,11 +184,9 @@ function ContactTracingForm({ storeId }) {
 
   function submitFormData(dataObj) {
     setLoaderOverlayIsOn(true);
-    console.log(dataObj);
     const postUrl = 'https://wait.genkisushihawaii.com/api/new-customer';
 
     let sendData = new FormData();
-    console.log(Object.keys(formData));
     Object.keys(formData).forEach(inputName => {
       sendData.append(inputName, formData[inputName]);
     })
@@ -200,21 +195,25 @@ function ContactTracingForm({ storeId }) {
       .then(res => res.json())
       .then(json => {
         const data = json.message.data;
-        console.log(data);
         history.push(`/${storeId}/checkin/${data.preCheckId}`);
         setLoaderOverlayIsOn(false);
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        setLoaderOverlayIsOn(false);
+        setOverlayModal({
+          active: true,
+          title: 'Oops!',
+          message: `Error: ${err}`
+        })
+      })
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
     preValidate();
-    console.log(Object.keys(formErrors).filter(key => formErrors[key] !== null));
 
     if (Object.keys(formErrors).filter(key => formErrors[key] !== null).length > 0) {
-      console.log(`Errors found`)
 
       setOverlayModal({
         active: true,
@@ -222,7 +221,6 @@ function ContactTracingForm({ storeId }) {
         message: `Please provide required information in the proper format.`
       })
     } else {
-      console.log('No errors found, continue to API')
       submitFormData(formData);
     }
 

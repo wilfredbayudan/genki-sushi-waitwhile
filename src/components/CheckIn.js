@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import Card from "./Card";
-import "../style/ContactTracingForm.css";
 import LoaderOverlay from "./LoaderOverlay";
 import CheckInForm from "./CheckInForm";
 import Location from "../classes/Location";
+import Success from "./Success";
 
 function CheckIn({ storeId }) {
   const preCheckParams = useParams().preCheckId;
   const [loaderOverlay, setLoaderOverlay] = useState(true);
   const history = useHistory();
+  const [checkedIn, setCheckedIn] = useState(false);
 
   useEffect(() => {
     Location.checkStatus(storeId)
@@ -25,10 +25,15 @@ function CheckIn({ storeId }) {
 
 
   return (
-    <Card title="Check-In Details" fullWidth>
+    <>
       <LoaderOverlay active={loaderOverlay} />
-      <CheckInForm preCheckParams={preCheckParams} storeId={storeId} />
-    </Card>
+      {
+        checkedIn ?
+        <Success checkInData={checkedIn} storeId={storeId} />
+        :
+        <CheckInForm preCheckParams={preCheckParams} storeId={storeId} setCheckedIn={setCheckedIn} />
+      }
+    </>
   )
 }
 

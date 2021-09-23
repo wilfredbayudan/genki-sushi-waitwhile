@@ -2,6 +2,10 @@
   width: 100%;
   text-align: left;
 }
+input[type='text']:disabled {
+  background-color: #d8faf5;
+  color: #000000;
+}
 .form-input {
   margin-bottom: 8px;
 }

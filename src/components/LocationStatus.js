@@ -4,7 +4,8 @@ import Location from "../classes/Location";
 import Loader from "./Loader";
 import LocationClosed from "./LocationClosed";
 import ErrorModal from "./ErrorModal";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import HandleCookie from '../classes/Cookies'
 
 function LocationStatus({ storeId, joinable }) {
 
@@ -12,7 +13,6 @@ function LocationStatus({ storeId, joinable }) {
   const [errors, setErrors] = useState();
 
   const history = useHistory();
-  const match = useRouteMatch();
 
   useEffect(() => {
     if (Location.validate(storeId)) {
@@ -25,11 +25,15 @@ function LocationStatus({ storeId, joinable }) {
     } else {
       setErrors('Invalid Location');
     }
-
   }, [storeId]);
 
   function handleJoinClick() {
-    history.push(`${match.url}/join`);
+    const preCheckValue = HandleCookie.get('preCheckId');
+    if (preCheckValue === "") {
+      history.push(`/${storeId}/join`);
+    } else {
+      history.push(`/${storeId}/checkin/${preCheckValue}`);
+    }
   }
 
   if (errors) {
