@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import MaterialUiPhoneNumber from "material-ui-phone-number";
-
+import HandleCookie from "../classes/Cookies";
 import countryData from "../data/Countries";
 import OverlayModal from "./OverlayModal";
 import LoaderOverlay from "./LoaderOverlay";
@@ -200,8 +200,9 @@ function ContactTracingForm({ storeId }) {
       .then(res => res.json())
       .then(json => {
         const data = json.message.data;
-        history.push(`/${storeId}/checkin/${data.preCheckId}`);
+        HandleCookie.set('preCheckId', data.preCheckId, 365);
         setLoaderOverlayIsOn(false);
+        history.push(`/${storeId}/checkin/${data.preCheckId}`);
       })
       .catch(err => {
         setLoaderOverlayIsOn(false);

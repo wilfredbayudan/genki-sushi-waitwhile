@@ -108,6 +108,15 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (disabledStatus) {
+      return setOverlayModal({
+        active: true,
+        title: 'Oops!',
+        message: 'Already trying to send data...'
+      })
+    }
+
     if (preCheckError || !validatePhone(phone) || parseInt(additionalDetails.partySize) < 1) {
       setOverlayModal({
         active: true,
@@ -144,7 +153,9 @@ function CheckInForm({ preCheckParams, storeId, setCheckedIn }) {
             .then(res => res.json())
             .then(json => {
               if (json[0].id) {
-                HandleCookie.set('preCheckId', retrievedId.precheckid, 365);            
+                console.log(json[0]);
+                HandleCookie.set('preCheckId', retrievedId.precheckid, 365);
+                HandleCookie.set('customerId', json[0].customerId, 1);            
                 setCheckedIn(json[0]);
               } else {
                 console.log('oops');

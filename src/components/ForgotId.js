@@ -11,7 +11,7 @@ function ForgotId({ storeId }) {
   return (
     <>
       <div className="notice bluebg">
-        <button className="createid" onClick={handleClick}>Need to create a PreCheck ID?</button>
+        <button className="createid" type="button" onClick={handleClick}>Need to create a PreCheck ID?</button>
       </div>
     </>
   )
